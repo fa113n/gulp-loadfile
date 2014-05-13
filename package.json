@@ -1,0 +1,30 @@
+{
+  "name": "gulp-loadfile",
+  "version": "0.1.0",
+  "description": "",
+  "main": "gulp-loadfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": [
+    {
+      "name": "EOL Portals GmbH",
+      "email": "info@quicker.com",
+      "url": "http://www.eol.de"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Igor Mertens",
+      "email": "i.mertens@eol.de"
+    }
+  ],
+  "license": "BSD",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "gulp": "^3.6.2",
+    "event-stream": "^3.1.5",
+    "lodash": "^2.4.1",
+  }
+}
