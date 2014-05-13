@@ -66,29 +66,32 @@ module.exports.task = function (task, cb) {
       }
     });
 
-    console.log(Modulekey + ':' + task, streams);
     // Less deployment task
     gulp.task(
       Modulekey + ':' + task,
-      streams
+      function () {
+        return streams;
+      }
     );
-    gutil.log('gulp-loadfile', Modulekey + ':' + task + ' running', gutil.colors.cyan('123'));
+    gutil.log('gulp-loadfile', gutil.colors.cyan(Modulekey + ':' + task + ' added'));
 
     // Less development task
     gulp.task(
       Modulekey + ':' + task + ':dev',
-      streams
+      function () {
+        return streams;
+      }
     );
-    gutil.log('gulp-loadfile', Modulekey + ':' + task + ':dev running', gutil.colors.cyan('123'));
+    gutil.log('gulp-loadfile', gutil.colors.cyan(Modulekey + ':' + task + ':dev added'));
   });
 
   // only dist tasks
   gulp.task(task, tasks);
-  gutil.log('gulp-loadfile', task + ' running', gutil.colors.cyan('123'));
+  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ' added'));
 
   // only dev tasks
   gulp.task(task + ':dev', tasksDev);
-  gutil.log('gulp-loadfile', task + ':dev running', gutil.colors.cyan('123'));
+  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ':dev added'));
 
   // watch all and run less tasks
   allTasks = tasks.concat(tasksDev);
@@ -99,8 +102,7 @@ module.exports.task = function (task, cb) {
       gulp.watch(files, allTasks);
     }
   );
-
-  gutil.log('gulp-loadfile', task + ':watch running', gutil.colors.cyan('123'));
+  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ':watch added'));
 
   return true;
 };
