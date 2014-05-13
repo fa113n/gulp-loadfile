@@ -36,6 +36,7 @@ module.exports.task = function (task, cb) {
   if (!isJsonString(pkg) || !isJsonString(loadfile)) {
     gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
   }
+  gutil.log('Using gulp-loadfile', gutil.colors.cyan('added'));
 
   _.forEach(loadfile.modules, function (module, Modulekey) {
 
@@ -73,7 +74,6 @@ module.exports.task = function (task, cb) {
         return streams;
       }
     );
-    gutil.log('gulp-loadfile', gutil.colors.cyan(Modulekey + ':' + task + ' added'));
 
     // Less development task
     gulp.task(
@@ -82,16 +82,13 @@ module.exports.task = function (task, cb) {
         return streams;
       }
     );
-    gutil.log('gulp-loadfile', gutil.colors.cyan(Modulekey + ':' + task + ':dev added'));
   });
 
   // only dist tasks
   gulp.task(task, tasks);
-  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ' added'));
 
   // only dev tasks
   gulp.task(task + ':dev', tasksDev);
-  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ':dev added'));
 
   // watch all and run less tasks
   allTasks = tasks.concat(tasksDev);
@@ -102,7 +99,6 @@ module.exports.task = function (task, cb) {
       gulp.watch(files, allTasks);
     }
   );
-  gutil.log('gulp-loadfile', gutil.colors.cyan(task + ':watch added'));
 
   return true;
 };
