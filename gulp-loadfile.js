@@ -10,18 +10,20 @@ var path = require('path'),
 var pkg = {},
   loadfile = {};
 
-function IsJsonString(str) {
+var isJsonString = function (str) {
   try {
     JSON.parse(str);
   } catch (e) {
     return false;
   }
   return true;
-}
+};
 
 module.exports = function (packageJSON, loadfileJSON) {
   pkg = packageJSON;
   loadfile = loadfileJSON;
+
+  return module.exports;
 };
 
 module.exports.task = function (task, cb) {
@@ -31,12 +33,8 @@ module.exports.task = function (task, cb) {
     allTasks,
     err;
 
-  gutil.log('gulp-loadfile', task + ' running', gutil.colors.cyan('123'));
-
-  if(!IsJsonString(pkg) || !IsJsonString(loadfile)) {
-    err = new Error("package.json or loadfile.json isn't valid");
-    console.log("package.json or loadfile.json isn't valid", err);
-    return err;
+  if (!isJsonString(pkg) || !isJsonString(loadfile)) {
+    gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
   }
 
   _.forEach(loadfile.modules, function (module, Modulekey) {
@@ -68,25 +66,29 @@ module.exports.task = function (task, cb) {
       }
     });
 
-    console.log(Modulekey + ':' + task);
+    console.log(Modulekey + ':' + task, streams);
     // Less deployment task
     gulp.task(
       Modulekey + ':' + task,
       streams
     );
+    gutil.log('gulp-loadfile', Modulekey + ':' + task + ' running', gutil.colors.cyan('123'));
 
     // Less development task
     gulp.task(
       Modulekey + ':' + task + ':dev',
       streams
     );
+    gutil.log('gulp-loadfile', Modulekey + ':' + task + ':dev running', gutil.colors.cyan('123'));
   });
 
   // only dist tasks
   gulp.task(task, tasks);
+  gutil.log('gulp-loadfile', task + ' running', gutil.colors.cyan('123'));
 
   // only dev tasks
   gulp.task(task + ':dev', tasksDev);
+  gutil.log('gulp-loadfile', task + ':dev running', gutil.colors.cyan('123'));
 
   // watch all and run less tasks
   allTasks = tasks.concat(tasksDev);
@@ -97,4 +99,8 @@ module.exports.task = function (task, cb) {
       gulp.watch(files, allTasks);
     }
   );
+
+  gutil.log('gulp-loadfile', task + ':watch running', gutil.colors.cyan('123'));
+
+  return true;
 };

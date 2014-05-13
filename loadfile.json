@@ -1,0 +1,51 @@
+{
+  "config": {
+    "src": "assets",
+    "dist": "dist",
+    "dev": "dev",
+    "meta": {
+      "banner": [
+        "/**",
+        " * <%= pkg.name %> - <%= pkg.description %>'",
+        " * @version v<%= pkg.version %>'",
+        " * @license <%= pkg.license %>'",
+        " */\n"
+      ]
+    }
+  },
+  
+  "modules": {
+    "frontend": {
+      "js": [{
+        "dest": "frontend.min.js",
+        "src": ["frontend.js"]
+      }],
+
+      "less": [
+        {
+          "dest": "frontendAll.min.css",
+          "src": [
+            "frontend.less", 
+            "frontend2.less"
+          ]
+        },
+        {
+          "dest": "frontend.min.css",
+          "src": ["frontend.less"]
+        }
+      ]
+    },
+
+    "backend": {
+      "js": [{
+        "dest": "backend.min.js",
+        "src": ["backend.js"]
+      }],
+
+      "less": [{
+        "dest": "backend.min.css",
+        "src": ["backend.less"]
+      }]
+    }
+  }
+}
