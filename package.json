@@ -1,6 +1,6 @@
 {
   "name": "gulp-loadfile",
-  "version": "v0.2.1",
+  "version": "v0.2.2",
   "description": "",
   "main": "gulp-loadfile.js",
   "scripts": {
@@ -24,7 +24,8 @@
     "gulp-header": "^1.0.2",
     "gulp-less": "^1.2.3",
     "gulp-minify-css": "^0.3.4",
-    "gulp-concat": "^2.2.0"
+    "gulp-concat": "^2.2.0",
+    "gulp-rename": "^1.2.0"
   },
   "dependencies": {
     "gulp": "^3.6.2",

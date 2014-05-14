@@ -10,15 +10,6 @@ var path = require('path'),
 var pkg = {},
   loadfile = {};
 
-var isJsonString = function (str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
 module.exports = function (packageJSON, loadfileJSON) {
   pkg = packageJSON;
   loadfile = loadfileJSON;
@@ -28,12 +19,9 @@ module.exports = function (packageJSON, loadfileJSON) {
 
 module.exports.task = function (task, cb) {
   var files = [],
-    tasks = [],
-    tasksDev = [],
-    allTasks,
-    err;
+    tasks = [];
 
-  if (!isJsonString(pkg) || !isJsonString(loadfile)) {
+  if (_.isEmpty(pkg) || _.isEmpty(loadfile)) {
     gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
   }
   gutil.log('Using gulp-loadfile', gutil.colors.cyan('added'));
@@ -42,13 +30,11 @@ module.exports.task = function (task, cb) {
 
     var streams = false;
     tasks.push(Modulekey + ':' + task);
-    tasksDev.push(Modulekey + ':' + task + ':dev');
     _.forEach(module[task], function (taskStream) {
-
       var moduleFiles = [],
         stream;
       _.forEach(taskStream.src, function (file) {
-        var filePath = path.join(__dirname, '..', loadfile.config.src, task, file);
+        var filePath = path.join(loadfile.config.src, task, file);
         moduleFiles.push(filePath);
         files.push(filePath);
       });
@@ -74,29 +60,17 @@ module.exports.task = function (task, cb) {
         return streams;
       }
     );
-
-    // Less development task
-    gulp.task(
-      Modulekey + ':' + task + ':dev',
-      function () {
-        return streams;
-      }
-    );
   });
 
   // only dist tasks
   gulp.task(task, tasks);
 
-  // only dev tasks
-  gulp.task(task + ':dev', tasksDev);
-
   // watch all and run less tasks
-  allTasks = tasks.concat(tasksDev);
   gulp.task(
     task + ':watch',
-    allTasks,
+    tasks,
     function () {
-      gulp.watch(files, allTasks);
+      gulp.watch(files, tasks);
     }
   );
 

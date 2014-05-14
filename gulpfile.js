@@ -17,7 +17,7 @@ loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
     .pipe(minifyCSS({relativeTo : '/', keepSpecialComments: 0}))
     .pipe(header(metaBanner.meta, metaBanner.pkg))
     .pipe(gulp.dest(
-      path.join(__dirname, '..', 'public', moduleDest, 'css')
+      path.join(__dirname, 'public', moduleDest, 'css')
     ));
 });
 
