@@ -3,26 +3,54 @@
 
 ##Bsp. usage:
 
+    'use strict';
+
     var path = require('path');
     var gulp = require('gulp');
     var less = require('gulp-less');
+    var rename = require('gulp-rename');
     var header = require('gulp-header');
     var minifyCSS = require('gulp-minify-css');
     var concat = require('gulp-concat');
-    
-    var loadfile = require('gulp-loadfile.js')(loadfile, package);
-    
-    loadfile('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
+    var pkg = require('./package.json');
+    var loadfileJSON = require('./loadfile.json');
+    var loadfile = require('./gulp-loadfile.js')(pkg, loadfileJSON);
+
+    loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
       return gulp.src(filesSrc)
         .pipe(less())
         .pipe(concat(fileDest))
         .pipe(minifyCSS({relativeTo : '/', keepSpecialComments: 0}))
         .pipe(header(metaBanner.meta, metaBanner.pkg))
+        .pipe(rename({
+          suffix: ".min"
+        }))
         .pipe(gulp.dest(
-          path.join(__dirname, '..', 'public', moduleDest, 'css')
+          path.join(moduleDest, 'dist')
         ));
     });
-    
+
+    loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
+      return gulp.src(filesSrc)
+        .pipe(less())
+        .pipe(concat(fileDest))
+        .pipe(header(metaBanner.meta, metaBanner.pkg))
+        .pipe(gulp.dest(
+          path.join(moduleDest, 'dev')
+        ));
+    });
+
+    loadfile.task('js', function (filesSrc, fileDest, metaBanner, moduleDest) {
+      return gulp.src(filesSrc)
+        .pipe(concat(fileDest))
+        .pipe(header(metaBanner.meta, metaBanner.pkg))
+        .pipe(gulp.dest(
+          path.join(moduleDest, 'dist')
+        ));
+    });
+
+    gulp.task('default', ['less']);
+
 ##Bsp. loadfile:
 
     {
@@ -41,7 +69,7 @@
           ]
         }
       },
-    
+
       "//": "Every module ",
       "modules": {
         "frontend": {
@@ -49,12 +77,12 @@
             "dest": "frontend.min.js",
             "src": ["frontend.js"]
           }],
-    
+
           "less": [
             {
               "dest": "frontendAll.min.css",
               "src": [
-                "frontend.less", 
+                "frontend.less",
                 "frontend2.less"
               ]
             },
@@ -64,13 +92,13 @@
             }
           ]
         },
-    
+
         "backend": {
           "js": [{
             "dest": "backend.min.js",
             "src": ["backend.js"]
           }],
-    
+
           "less": [{
             "dest": "backend.min.css",
             "src": ["backend.less"]

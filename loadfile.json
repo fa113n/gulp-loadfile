@@ -1,8 +1,7 @@
 {
   "config": {
     "src": "assets",
-    "dist": "dist",
-    "dev": "dev",
+    "dist": "public",
     "meta": {
       "banner": [
         "/**",
@@ -17,20 +16,20 @@
   "modules": {
     "frontend": {
       "js": [{
-        "dest": "frontend.min.js",
+        "dest": "frontend.js",
         "src": ["frontend.js"]
       }],
 
       "less": [
         {
-          "dest": "frontendAll.min.css",
+          "dest": "frontendAll.css",
           "src": [
             "frontend.less",
             "frontend2.less"
           ]
         },
         {
-          "dest": "frontend.min.css",
+          "dest": "frontend.css",
           "src": ["frontend.less"]
         }
       ]
@@ -38,12 +37,12 @@
 
     "backend": {
       "js": [{
-        "dest": "backend.min.js",
+        "dest": "backend.js",
         "src": ["backend.js"]
       }],
 
       "less": [{
-        "dest": "backend.min.css",
+        "dest": "backend.css",
         "src": ["backend.less"]
       }]
     }
