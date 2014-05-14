@@ -85,7 +85,15 @@ module.exports.task = function (task, cb) {
     task + ':watch',
     tasks,
     function () {
-      gulp.watch(files, tasks);
+      var watch = gulp.watch(files, tasks);
+      watch.on('change', function (event) {
+        gutil.log(
+          gutil.colors.green(" " + event.type + " '"),
+          gutil.colors.cyan(event.path.replace(__dirname, "")),
+          gutil.colors.green("'"),
+          gutil.colors.magenta('running tasks...')
+        );
+      });
     }
   );
 

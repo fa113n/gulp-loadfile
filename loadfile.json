@@ -5,9 +5,9 @@
     "meta": {
       "banner": [
         "/**",
-        " * <%= pkg.name %> - <%= pkg.description %>'",
-        " * @version v<%= pkg.version %>'",
-        " * @license <%= pkg.license %>'",
+        " * <%= pkg.name %> - <%= pkg.description %>",
+        " * @version <%= pkg.version %>",
+        " * @license <%= pkg.license %>",
         " */\n"
       ]
     }

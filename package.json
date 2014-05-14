@@ -1,7 +1,7 @@
 {
   "name": "gulp-loadfile",
-  "version": "v0.3.1",
-  "description": "",
+  "version": "0.3.2",
+  "description": "add loadfile to gulp",
   "main": "gulp-loadfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
