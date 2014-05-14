@@ -18,7 +18,6 @@ module.exports = function (packageJSON, loadfileJSON) {
     gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
     return;
   }
-  gutil.log('Using gulp-loadfile', gutil.colors.cyan('added'));
   return module.exports;
 };
 
@@ -29,6 +28,7 @@ module.exports.task = function (task, cb) {
   if (_.isEmpty(pkg) || _.isEmpty(loadfile)) {
     gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
   }
+  gutil.log('Using gulp-loadfile', gutil.colors.cyan('task'));
 
   // modules definition
   _.forEach(loadfile.modules, function (module, Modulekey) {
