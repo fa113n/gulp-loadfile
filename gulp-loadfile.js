@@ -53,17 +53,17 @@ module.exports.task = function (task, cb) {
         moduleFiles,
         taskStream.dest,
         {meta: loadfile.config.meta.banner.join('\n'), pkg: { pkg: pkg }},
-        loadfile.config.dist + '/' + pkg.version + '/' + Modulekey + '/'  + task
+        loadfile.config.dist + '/' + Modulekey + '/' + pkg.version + '/' + task
       );
 
       // concat all streams
       if (streams !== false) {
         streams = es.concat(streams, stream, stream.pipe(gulp.dest(
-          path.join(loadfile.config.dist, 'latest', Modulekey, task)
+          path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       } else {
         streams = es.concat(stream, stream.pipe(gulp.dest(
-          path.join(loadfile.config.dist, 'latest', Modulekey, task)
+          path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       }
     });
