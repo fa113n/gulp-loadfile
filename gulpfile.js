@@ -45,3 +45,4 @@ loadfile.task('js', function (filesSrc, fileDest, metaBanner, moduleDest) {
 });
 
 gulp.task('default', ['less']);
+gulp.task('watch', ['less:watch', 'js:watch']);

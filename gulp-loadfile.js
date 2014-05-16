@@ -39,7 +39,8 @@ module.exports.task = function (task, cb) {
     // tasks definition
     _.forEach(module[task], function (taskStream) {
       var moduleFiles = [],
-        stream;
+        stream,
+        args;
 
       // add all sub files
       _.forEach(taskStream.src, function (file) {
@@ -48,21 +49,23 @@ module.exports.task = function (task, cb) {
         files.push(filePath);
       });
 
-      // gulp stream injection
-      stream = cb(
+      args = [
         moduleFiles,
         taskStream.dest,
         {meta: loadfile.config.meta.banner.join('\n'), pkg: { pkg: pkg }},
         loadfile.config.dist + '/' + Modulekey + '/' + pkg.version + '/' + task
-      );
+      ];
+
+      // gulp stream injection
+      stream = cb.apply(this, args);
 
       // concat all streams
       if (streams !== false) {
-        streams = es.concat(streams, stream, stream.pipe(gulp.dest(
+        streams = es.merge(streams, stream, stream.pipe(gulp.dest(
           path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       } else {
-        streams = es.concat(stream, stream.pipe(gulp.dest(
+        streams = es.merge(stream, stream.pipe(gulp.dest(
           path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       }
@@ -72,7 +75,7 @@ module.exports.task = function (task, cb) {
     gulp.task(
       Modulekey + ':' + task,
       function () {
-        return es.concat(streams);
+        return streams;
       }
     );
   });

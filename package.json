@@ -1,6 +1,6 @@
 {
   "name": "gulp-loadfile",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "description": "add loadfile to gulp",
   "main": "gulp-loadfile.js",
   "scripts": {
