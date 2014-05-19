@@ -3,7 +3,6 @@
 var path = require('path'),
   gulp   = require('gulp'),
   gutil  = require('gulp-util'),
-  es     = require('event-stream'),
   _      = require('lodash');
 
 // Config
@@ -28,7 +27,7 @@ module.exports.task = function (task, cb) {
   if (_.isEmpty(pkg) || _.isEmpty(loadfile)) {
     gutil.log('gulp-loadfile', gutil.colors.red('warning jsonfiles not valid'));
   }
-  gutil.log('Using gulp-loadfile', gutil.colors.cyan('task'));
+  gutil.log('Using gulp-loadfile', gutil.colors.cyan(task));
 
   // modules definition
   _.forEach(loadfile.modules, function (module, Modulekey) {
@@ -61,11 +60,11 @@ module.exports.task = function (task, cb) {
 
       // concat all streams
       if (streams !== false) {
-        streams = es.merge(streams, stream, stream.pipe(gulp.dest(
+        streams = gutil.combine(streams, stream, stream.pipe(gulp.dest(
           path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       } else {
-        streams = es.merge(stream, stream.pipe(gulp.dest(
+        streams = gutil.combine(stream, stream.pipe(gulp.dest(
           path.join(loadfile.config.dist, Modulekey, 'latest', task)
         )));
       }
@@ -84,21 +83,21 @@ module.exports.task = function (task, cb) {
   gulp.task(task, tasks);
 
   // watch all and run less tasks
-  gulp.task(
-    task + ':watch',
-    tasks,
-    function () {
-      var watch = gulp.watch(files, tasks);
-      watch.on('change', function (event) {
-        gutil.log(
-          gutil.colors.green(" " + event.type + " '"),
-          gutil.colors.cyan(event.path.replace(__dirname, "")),
-          gutil.colors.green("'"),
-          gutil.colors.magenta('running tasks...')
-        );
-      });
-    }
-  );
+//  gulp.task(
+//    task + ':watch',
+//    tasks,
+//    function () {
+//      var watch = gulp.watch(files, tasks);
+//      watch.on('change', function (event) {
+//        gutil.log(
+//          gutil.colors.green(" " + event.type + " '"),
+//          gutil.colors.cyan(event.path.replace(__dirname, "")),
+//          gutil.colors.green("'"),
+//          gutil.colors.magenta('running tasks...')
+//        );
+//      });
+//    }
+//  );
 
   return true;
 };

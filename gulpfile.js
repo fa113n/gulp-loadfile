@@ -25,15 +25,15 @@ loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
     ));
 });
 
-loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
-  return gulp.src(filesSrc)
-    .pipe(less())
-    .pipe(concat(fileDest))
-    .pipe(header(metaBanner.meta, metaBanner.pkg))
-    .pipe(gulp.dest(
-      path.join(moduleDest, 'dev')
-    ));
-});
+//loadfile.task('less', function (filesSrc, fileDest, metaBanner, moduleDest) {
+//  return gulp.src(filesSrc)
+//    .pipe(less())
+//    .pipe(concat(fileDest))
+//    .pipe(header(metaBanner.meta, metaBanner.pkg))
+//    .pipe(gulp.dest(
+//      path.join(moduleDest, 'dev')
+//    ));
+//});
 
 loadfile.task('js', function (filesSrc, fileDest, metaBanner, moduleDest) {
   return gulp.src(filesSrc)
@@ -46,3 +46,7 @@ loadfile.task('js', function (filesSrc, fileDest, metaBanner, moduleDest) {
 
 gulp.task('default', ['less']);
 gulp.task('watch', ['less:watch', 'js:watch']);
+
+gulp.task('less:watch', function () {
+  gulp.watch('assets/less/*', ['frontend:less', 'backend:less']);
+});

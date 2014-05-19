@@ -24,13 +24,13 @@
         {
           "dest": "frontendAll.css",
           "src": [
-            "frontend.less",
-            "frontend2.less"
+            "frontend.core.less",
+            "backend.core.less"
           ]
         },
         {
           "dest": "frontend.css",
-          "src": ["frontend.less"]
+          "src": ["frontend.core.less"]
         }
       ]
     },
