@@ -7,17 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": {
-      "name": "EOL Portals GmbH",
-      "email": "info@quicker.com",
-      "url": "http://www.eol.de"
+      "name": "Igor Mertens",
+      "email": "git@fa113n.de",
+      "url": "-"
   },
   "contributors": [
     {
       "name": "Igor Mertens",
-      "email": "i.mertens@eol.de"
+      "email": "git@fa113n.de"
     }
   ],
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "gulp-header": "^1.0.2",
     "gulp-less": "^1.2.3",
