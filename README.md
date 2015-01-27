@@ -1,7 +1,7 @@
 #gulp-loadfile
 
 
-##Bsp. usage:
+##example usage:
 
     'use strict';
 
@@ -106,3 +106,7 @@
         }
       }
     }
+
+##Todo:
+###Watch Task
+not working at the moment
