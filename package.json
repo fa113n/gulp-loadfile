@@ -1,0 +1,33 @@
+{
+  "name": "gulp-loadfile",
+  "version": "0.3.6",
+  "description": "add loadfile to gulp",
+  "main": "gulp-loadfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+      "name": "Igor Mertens",
+      "email": "git@fa113n.de",
+      "url": "-"
+  },
+  "contributors": [
+    {
+      "name": "Igor Mertens",
+      "email": "git@fa113n.de"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "gulp-header": "^1.0.2",
+    "gulp-less": "^1.2.3",
+    "gulp-minify-css": "^0.3.4",
+    "gulp-concat": "^2.2.0",
+    "gulp-rename": "^1.2.0"
+  },
+  "dependencies": {
+    "gulp": "^3.6.2",
+    "gulp-util": "^2.2.14",
+    "lodash": "^2.4.1"
+  }
+}
